@@ -1,1 +1,2 @@
 aca estara el frontend
+se debe iniciar el desarrollo de la aplicacion usando el framework angular 14
