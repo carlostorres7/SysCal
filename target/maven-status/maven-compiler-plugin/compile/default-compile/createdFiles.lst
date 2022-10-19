@@ -1,3 +1,8 @@
+com/syscal/apisyscal/services/AuthService.class
 com/syscal/apisyscal/controllers/MainController.class
 com/syscal/apisyscal/ApiSyscalApplication.class
+com/syscal/apisyscal/ApiSyscalApplication$1.class
+com/syscal/apisyscal/services/MainService.class
 com/syscal/apisyscal/ServletInitializer.class
+com/syscal/apisyscal/infraestructure/repositories/MainRepository.class
+com/syscal/apisyscal/infraestructure/entities/MainEntity.class
