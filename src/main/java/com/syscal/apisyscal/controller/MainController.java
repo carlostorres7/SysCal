@@ -1,6 +1,6 @@
-package com.syscal.apisyscal.controllers;
+package com.syscal.apisyscal.controller;
 
-import com.syscal.apisyscal.services.MainService;
+import com.syscal.apisyscal.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

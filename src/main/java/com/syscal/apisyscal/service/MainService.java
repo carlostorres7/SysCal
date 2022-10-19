@@ -1,7 +1,7 @@
-package com.syscal.apisyscal.services;
+package com.syscal.apisyscal.service;
 
-import com.syscal.apisyscal.infraestructure.entities.MainEntity;
-import com.syscal.apisyscal.infraestructure.repositories.MainRepository;
+import com.syscal.apisyscal.model.entity.MainEntity;
+import com.syscal.apisyscal.repository.MainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -13,16 +13,4 @@ public class ApiSyscalApplication {
 		SpringApplication.run(ApiSyscalApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedHeaders("*")
-						.allowedOrigins("*");
-			}
-		};
-	}
-
 }
