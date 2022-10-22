@@ -1,3 +1,3 @@
-com/syscal/apisyscal/controllers/MainController.class
-com/syscal/apisyscal/ApiSyscalApplication.class
-com/syscal/apisyscal/ServletInitializer.class
+com\syscal\apisyscal\controllers\MainController.class
+com\syscal\apisyscal\ServletInitializer.class
+com\syscal\apisyscal\ApiSyscalApplication.class
