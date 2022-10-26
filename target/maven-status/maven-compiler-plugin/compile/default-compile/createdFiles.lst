@@ -7,3 +7,5 @@ com/syscal/apisyscal/service/MainService.class
 com/syscal/apisyscal/ServletInitializer.class
 com/syscal/apisyscal/repository/MainRepository.class
 com/syscal/apisyscal/model/entity/MainEntity.class
+com\syscal\apisyscal\ServletInitializer.class
+com\syscal\apisyscal\ApiSyscalApplication.class
