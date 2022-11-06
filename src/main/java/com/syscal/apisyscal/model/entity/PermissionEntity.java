@@ -20,7 +20,7 @@ public class PermissionEntity {
 
     @Column(name = "rol_id")
     private Integer rolId;
-    
+
     @Column(name = "main_id")
     private Integer mainId;
 }

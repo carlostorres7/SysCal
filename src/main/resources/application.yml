@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/syscal
+    username: root
+    password: sa..
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8090 # This is the default port anyway, but you can change it here
+security:
+
+jwt:
+  jwtCookieName: Bearer
+  jwtSecret: zdWIiOiJlZHdhcmVyYXpvIiwiaWF0IjoxNjY3NTM4NTQxLCJleHAiOjE2Njc2MjQ5NDF9
+  jwtExpirationMs: 86400000
