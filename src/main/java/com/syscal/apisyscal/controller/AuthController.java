@@ -1,8 +1,8 @@
 package com.syscal.apisyscal.controller;
 
-
 import javax.validation.Valid;
 
+import com.syscal.apisyscal.email.EmailService;
 import com.syscal.apisyscal.model.request.RecoverPasswordDTO;
 import com.syscal.apisyscal.security.services.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +37,9 @@ public class AuthController {
     UserDetailsServiceImpl userService;
 
     @Autowired
+    EmailService emailService;
+
+    @Autowired
     PasswordEncoder encoder;
   
     @Autowired
@@ -45,6 +48,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequestDTO loginRequest) {
         log.info("Auth Controller - Login");
+        emailService.sendEmailTool("Inicio de sesion x", "carlostorres8791@gmail.com", "Prueba de correo");
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(userAuth);
         SecurityContextHolder.getContext().setAuthentication(authentication);
