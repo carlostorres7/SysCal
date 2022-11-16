@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserInfoResponse {
     private Integer id;
+	private String name;
 	private String username;
 	private String email;
 	private String auth_token;

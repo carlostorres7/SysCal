@@ -60,10 +60,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   
     private String parseJwt(HttpServletRequest request) {
         String jwt = jwtUtils.getJwtFromHeader(request);
-        System.out.println("bandera");
-        System.out.println(request.getHeaderNames());
-        System.out.println(jwt);
-        //String jwt = jwtUtils.getJwtFromCookies(request);
         return jwt;
     }
 

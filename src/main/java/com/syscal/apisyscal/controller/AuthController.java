@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,8 +55,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
-        //return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(response);
+        UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getName() ,userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
         return ResponseEntity.ok().header("auth_token", jwtCookie.toString()).body(response);
     }
 
