@@ -1,6 +1,7 @@
 package com.syscal.apisyscal.security.jwt;
 
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,12 +33,20 @@ public class JwtUtils {
   
     public String getJwtFromCookies(HttpServletRequest request) {
       Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        System.out.println(jwtCookie);
       if (cookie != null) {
         return cookie.getValue();
       } else {
         return null;
       }
+    }
+
+    public String getJwtFromHeader(HttpServletRequest request) {
+        String token = request.getHeader("auth-token");
+        if (token != null) {
+            return token;
+        } else {
+            return null;
+        }
     }
   
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {

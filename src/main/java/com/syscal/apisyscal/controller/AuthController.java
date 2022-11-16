@@ -50,8 +50,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),userDetails.getUsername(), userDetails.getEmail());
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(response);
+        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
+        //return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(response);
+        return ResponseEntity.ok().header("auth_token", jwtCookie.toString()).body(response);
     }
 
     @PostMapping("/change-password")

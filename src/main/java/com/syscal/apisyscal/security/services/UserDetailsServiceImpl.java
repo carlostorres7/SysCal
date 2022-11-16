@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void updatePasswordBYUser(String username, String password ) throws  Exception {
         Optional<UserEntity> user = userRepository.findByUsername(username);
         if (!user.isPresent()) {
-            throw new RestClientException("El usuario no existe");
+            throw new RestClientException("User not exist");
         }
         UserEntity userEdit = user.get();
         userEdit.setPassword(password);
