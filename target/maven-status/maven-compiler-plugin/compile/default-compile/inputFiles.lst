@@ -1,8 +1,0 @@
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/model/entity/MainEntity.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/service/AuthService.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/ApiSyscalApplication.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/service/MainService.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/ServletInitializer.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/config/configCors.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/repository/MainRepository.java
-/home/edwar/Proyects/syscal-api/src/main/java/com/syscal/apisyscal/controller/MainController.java
