@@ -9,10 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -31,9 +33,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable Integer id) {
-        if (id.equals(100)) {
-            throw new BusinessException("Error custom", "500",HttpStatus.BAD_REQUEST);
-        }
         UserControllerResponseDTO users = userService.getUserById(id);
         return ResponseEntity.ok().body(users);
     }
@@ -46,5 +45,24 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @PutMapping("/{Userid}")
+    public ResponseEntity<?> updateUser(@Valid @PathVariable @NotNull @Min(1) Integer Userid, @Valid @RequestBody UserRequestDTO body) {
+        log.info("UserController.updateUser");
+        if (Userid < 1) {
+            throw new BusinessException(String.format("The value %s must greater than 1", Userid), "400", HttpStatus.BAD_REQUEST);
+        }
+        UserEntity userEntity = userService.updateUserById(Userid, body);
+        return ResponseEntity.ok().body(userEntity);
+    }
+
+    @DeleteMapping("/{Userid}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer Userid) {
+        log.info("UserController.deleteUser");
+        if (Userid < 1) {
+            throw new BusinessException(String.format("The value %s must greater than 1", Userid), "400", HttpStatus.BAD_REQUEST);
+        }
+        userService.deleteUserById(Userid);
+        return ResponseEntity.ok().body("Successfully deleted User");
+    }
 
 }

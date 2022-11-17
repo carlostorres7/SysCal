@@ -1,5 +1,6 @@
 package com.syscal.apisyscal.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,10 @@ public class UserEntity {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn( name = "rol_id", referencedColumnName = "id")
     private RolEntity rol;
 
