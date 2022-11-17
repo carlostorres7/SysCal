@@ -34,13 +34,16 @@ public class ControllerAdvice {
 
     @ExceptionHandler(value = BusinessException.class)
     public ResponseEntity<ErrorDTO> businessExceptionHandler(BusinessException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        errors.put("error",ex.getLocalizedMessage());
         ErrorDTO error = new ErrorDTO();
         error.setCode(ex.getCode());
-        error.setMessage(ex.getLocalizedMessage());
+        error.setMessage("Business Exception Error");
         error.setStatus(ex.getStatus());
+        error.setErrors(errors);
         return new ResponseEntity<>(error, ex.getStatus());
     }
-
+/*
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<ErrorDTO> runtimeExceptionHandler(RuntimeException ex) {
         ErrorDTO error = new ErrorDTO();
@@ -49,4 +52,7 @@ public class ControllerAdvice {
         error.setStatus(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+*/
+
 }
+

@@ -13,11 +13,11 @@ public interface UserService {
 
     public List<UserControllerResponseDTO> getAllUsers();
 
-    public UserControllerResponseDTO getUserById(Integer userId) throws HttpClientErrorException;
+    public UserControllerResponseDTO getUserById(Integer userId);
 
-    public Boolean deleteUserById(Integer userId);
+    public void deleteUserById(Integer userId);
 
-    public Boolean updateUserById(Integer userId, UserEntity user);
+    public UserEntity updateUserById(Integer userId, UserRequestDTO user);
 
     public UserEntity saveUser(UserRequestDTO user);
 
