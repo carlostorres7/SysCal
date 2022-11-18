@@ -3,6 +3,7 @@ package com.syscal.apisyscal.controller;
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.UserEntity;
 import com.syscal.apisyscal.model.request.UserRequestDTO;
+import com.syscal.apisyscal.model.response.ResponseDto;
 import com.syscal.apisyscal.model.response.UserControllerResponseDTO;
 import com.syscal.apisyscal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -62,7 +65,13 @@ public class UserController {
             throw new BusinessException(String.format("The value %s must greater than 1", Userid), "400", HttpStatus.BAD_REQUEST);
         }
         userService.deleteUserById(Userid);
-        return ResponseEntity.ok().body("Successfully deleted User");
+        ResponseDto response = new ResponseDto();
+        response.setMessage("Successfully deleted User");
+        response.setStatus(HttpStatus.OK);
+        Map<String, Object> data = new HashMap<>();
+        data.put("message", "The User "+Userid +" was removed");
+        response.setData(data);
+        return ResponseEntity.ok().body(response);
     }
 
 }
