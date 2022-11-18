@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
         List<UserEntity> users = userRepo.findAll();
         List<UserControllerResponseDTO> userDto = new ArrayList<>();
         users.stream().forEach( user -> {
-            userDto.add(new UserControllerResponseDTO(user.getId(),user.getUsername(),user.getName(),user.getEmail()));
+            userDto.add(new UserControllerResponseDTO(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getRol().getId(),user.getRol().getName()));
         });
         return userDto;
     }
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService{
     public UserControllerResponseDTO getUserById(Integer userId) throws HttpClientErrorException {
         Optional<UserEntity> user = userRepo.findById(userId);
         if (user.isPresent()) {
-            UserControllerResponseDTO userDTO = new UserControllerResponseDTO(user.get().getId(),user.get().getUsername(),user.get().getName(),user.get().getEmail());
+            UserControllerResponseDTO userDTO = new UserControllerResponseDTO(user.get().getId(),user.get().getUsername(),user.get().getName(),user.get().getEmail(),user.get().getRol().getId(),user.get().getRol().getName());
             return userDTO;
         }
         throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "The User not Exist");
