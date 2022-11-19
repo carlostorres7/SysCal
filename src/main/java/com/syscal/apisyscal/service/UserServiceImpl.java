@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService{
             throw new BusinessException("Role Id not Exist","404",HttpStatus.NOT_FOUND);
         }
         try {
+            user.get().setId(userId);
             user.get().setName(userDto.getName());
             user.get().setUsername(userDto.getUsername());
             user.get().setPassword(encoder.encode(userDto.getPassword()));

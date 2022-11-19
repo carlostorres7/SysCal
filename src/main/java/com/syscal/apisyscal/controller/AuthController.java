@@ -59,6 +59,14 @@ public class AuthController {
         return ResponseEntity.ok().header("auth_token", jwtCookie.toString()).body(response);
     }
 
+    @PostMapping("/recover-password")
+    public ResponseEntity<?> recoverPassword(@Valid @RequestBody RecoverPasswordDTO body) {
+        log.info("Auth Controller - Recover Password");
+        userService.recoverPassword(body.getUsername());
+        return ResponseEntity.ok().body(null);
+    }
+
+
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@Valid @RequestBody RecoverPasswordDTO body ) throws Exception {
         log.info("Auth Controller - Change Password");
