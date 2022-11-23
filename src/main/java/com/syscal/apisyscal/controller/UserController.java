@@ -3,16 +3,14 @@ package com.syscal.apisyscal.controller;
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.UserEntity;
 import com.syscal.apisyscal.model.request.UserRequestDTO;
-import com.syscal.apisyscal.model.response.ResponseDto;
-import com.syscal.apisyscal.model.response.UserControllerResponseDTO;
+import com.syscal.apisyscal.model.response.ResponseDTO;
+import com.syscal.apisyscal.model.response.UserResponseDTO;
 import com.syscal.apisyscal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -30,13 +28,19 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllUsers() {
-        List<UserControllerResponseDTO> users = userService.getAllUsers();
+        List<UserResponseDTO> users = userService.getAllUsers();
         return ResponseEntity.ok().body(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable Integer id) {
-        UserControllerResponseDTO users = userService.getUserById(id);
+        UserResponseDTO users = userService.getUserById(id);
+        return ResponseEntity.ok().body(users);
+    }
+
+    @GetMapping("/role/{id}")
+    public ResponseEntity<?> getByRol(@PathVariable Integer id) {
+        List<UserResponseDTO> users = userService.getAllUsersByRolId(id);
         return ResponseEntity.ok().body(users);
     }
 
@@ -65,7 +69,7 @@ public class UserController {
             throw new BusinessException(String.format("The value %s must greater than 1", Userid), "400", HttpStatus.BAD_REQUEST);
         }
         userService.deleteUserById(Userid);
-        ResponseDto response = new ResponseDto();
+        ResponseDTO response = new ResponseDTO();
         response.setMessage("Successfully deleted User");
         response.setStatus(HttpStatus.OK);
         Map<String, Object> data = new HashMap<>();

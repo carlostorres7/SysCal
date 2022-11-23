@@ -1,7 +1,6 @@
 package com.syscal.apisyscal.security.jwt;
 
 import java.util.Date;
-import java.util.Enumeration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import com.syscal.apisyscal.security.services.UserDetailsImpl;
+import com.syscal.apisyscal.security.services.AuthUserDetailsImpl;
 
 import io.jsonwebtoken.*;
 
@@ -49,7 +48,7 @@ public class JwtUtils {
         }
     }
   
-    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
+    public ResponseCookie generateJwtCookie(AuthUserDetailsImpl userPrincipal) {
       String jwt = generateTokenFromUsername(userPrincipal.getUsername());
       ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
       return cookie;

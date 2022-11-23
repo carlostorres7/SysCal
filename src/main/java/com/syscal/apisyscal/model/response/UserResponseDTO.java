@@ -3,10 +3,12 @@ package com.syscal.apisyscal.model.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class UserControllerResponseDTO {
+@NoArgsConstructor
+public class UserResponseDTO {
 
     private Integer id;
     private String username;
@@ -16,6 +18,5 @@ public class UserControllerResponseDTO {
     private Integer rolId;
     @JsonProperty("rol_name")
     private String RolName;
-
 
 }

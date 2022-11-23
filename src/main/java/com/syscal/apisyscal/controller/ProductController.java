@@ -2,13 +2,10 @@ package com.syscal.apisyscal.controller;
 
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.ProductEntity;
-import com.syscal.apisyscal.model.entity.UserEntity;
 import com.syscal.apisyscal.model.request.ProductRequestDTO;
-import com.syscal.apisyscal.model.request.UserRequestDTO;
-import com.syscal.apisyscal.model.response.ResponseDto;
-import com.syscal.apisyscal.model.response.UserControllerResponseDTO;
+import com.syscal.apisyscal.model.response.ProductResponseDTO;
+import com.syscal.apisyscal.model.response.ResponseDTO;
 import com.syscal.apisyscal.service.ProductService;
-import com.syscal.apisyscal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,14 +27,14 @@ public class ProductController {
     @GetMapping("")
     public ResponseEntity<?> getAllProducts() {
         log.info("ProductController.getAllProducts");
-        List<ProductEntity> products = productService.getAllProducts();
+        List<ProductResponseDTO> products = productService.getAll();
         return ResponseEntity.ok().body(products);
     }
 
     @GetMapping("/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable Integer productId) {
         log.info("ProductController.getProduct");
-        ProductEntity product = productService.getProductById(productId);
+        ProductEntity product = productService.getOne(productId);
         return ResponseEntity.ok().body(product);
     }
 
@@ -45,7 +42,7 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<?> saveProduct(@Valid @RequestBody ProductRequestDTO data) {
         log.info("ProductController.saveProduct");
-        ProductEntity product = productService.saveProduct(data);
+        ProductEntity product = productService.save(data);
         return ResponseEntity.ok().body(product);
     }
 
@@ -55,7 +52,7 @@ public class ProductController {
         if (productId < 1) {
             throw new BusinessException(String.format("The value %s must greater than 1", productId), "400", HttpStatus.BAD_REQUEST);
         }
-        ProductEntity productEntity = productService.updateProduct(productId, body);
+        ProductEntity productEntity = productService.update(productId, body);
         return ResponseEntity.ok().body(productEntity);
     }
 
@@ -65,8 +62,8 @@ public class ProductController {
         if (productId < 1) {
             throw new BusinessException(String.format("The value %s must greater than 1", productId), "400", HttpStatus.BAD_REQUEST);
         }
-        productService.deleteProduct(productId);
-        ResponseDto response = new ResponseDto();
+        productService.delete(productId);
+        ResponseDTO response = new ResponseDTO();
         response.setMessage("Successfully deleted Product");
         response.setStatus(HttpStatus.OK);
         Map<String, Object> data = new HashMap<>();
@@ -74,6 +71,5 @@ public class ProductController {
         response.setData(data);
         return ResponseEntity.ok().body(response);
     }
-
 
 }

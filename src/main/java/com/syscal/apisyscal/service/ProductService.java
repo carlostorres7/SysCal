@@ -2,19 +2,20 @@ package com.syscal.apisyscal.service;
 
 import com.syscal.apisyscal.model.entity.ProductEntity;
 import com.syscal.apisyscal.model.request.ProductRequestDTO;
+import com.syscal.apisyscal.model.response.ProductResponseDTO;
 
 import java.util.List;
 
 public interface ProductService {
 
-    public List<ProductEntity> getAllProducts();
+    public List<ProductResponseDTO> getAll();
 
-    public ProductEntity getProductById(Integer id);
+    public ProductEntity getOne(Integer id);
 
-    public ProductEntity saveProduct(ProductRequestDTO data);
+    public ProductEntity save(ProductRequestDTO body);
 
-    public ProductEntity updateProduct(Integer id, ProductRequestDTO data);
+    public ProductEntity update(Integer id, ProductRequestDTO body);
 
-    public boolean deleteProduct(Integer id);
+    public void delete( Integer id);
 
 }

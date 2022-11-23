@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import com.syscal.apisyscal.model.entity.MainEntity;
 import com.syscal.apisyscal.model.entity.RolEntity;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.syscal.apisyscal.model.entity.UserEntity;
 
 @Data
-public class UserDetailsImpl implements UserDetails {
+public class AuthUserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Integer id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, RolEntity roles) {
+    public AuthUserDetailsImpl(Integer id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, RolEntity roles) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -46,12 +44,12 @@ public class UserDetailsImpl implements UserDetails {
         this.roles = roles;
     }
 
-    public static UserDetailsImpl build(UserEntity user) {
+    public static AuthUserDetailsImpl build(UserEntity user) {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRol().getName()));
 
-        return new UserDetailsImpl(user.getId(), user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), authorities, user.getRol());
+        return new AuthUserDetailsImpl(user.getId(), user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), authorities, user.getRol());
     }
 
     public Integer getId() {
@@ -98,7 +96,7 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
+        AuthUserDetailsImpl user = (AuthUserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
 

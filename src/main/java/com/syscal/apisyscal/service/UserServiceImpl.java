@@ -4,25 +4,21 @@ import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.RolEntity;
 import com.syscal.apisyscal.model.entity.UserEntity;
 import com.syscal.apisyscal.model.request.UserRequestDTO;
-import com.syscal.apisyscal.model.response.UserControllerResponseDTO;
+import com.syscal.apisyscal.model.response.UserResponseDTO;
 import com.syscal.apisyscal.repository.RolRepository;
 import com.syscal.apisyscal.repository.UserRepository;
-import com.syscal.apisyscal.security.jwt.JwtUtils;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
@@ -34,20 +30,20 @@ public class UserServiceImpl implements UserService{
     PasswordEncoder encoder;
 
     @Override
-    public List<UserControllerResponseDTO> getAllUsers() {
+    public List<UserResponseDTO> getAllUsers() {
         List<UserEntity> users = userRepo.findAll();
-        List<UserControllerResponseDTO> userDto = new ArrayList<>();
+        List<UserResponseDTO> userDto = new ArrayList<>();
         users.stream().forEach( user -> {
-            userDto.add(new UserControllerResponseDTO(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getRol().getId(),user.getRol().getName()));
+            userDto.add(new UserResponseDTO(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getRol().getId(),user.getRol().getName()));
         });
         return userDto;
     }
 
     @Override
-    public UserControllerResponseDTO getUserById(Integer userId) throws HttpClientErrorException {
+    public UserResponseDTO getUserById(Integer userId) throws HttpClientErrorException {
         Optional<UserEntity> user = userRepo.findById(userId);
         if (user.isPresent()) {
-            UserControllerResponseDTO userDTO = new UserControllerResponseDTO(user.get().getId(),user.get().getUsername(),user.get().getName(),user.get().getEmail(),user.get().getRol().getId(),user.get().getRol().getName());
+            UserResponseDTO userDTO = new UserResponseDTO(user.get().getId(),user.get().getUsername(),user.get().getName(),user.get().getEmail(),user.get().getRol().getId(),user.get().getRol().getName());
             return userDTO;
         }
         throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "The User not Exist");
@@ -107,4 +103,20 @@ public class UserServiceImpl implements UserService{
             throw new BusinessException(ex.getCause().getCause().getMessage(), "500", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public List<UserResponseDTO> getAllUsersByRolId(Integer RolId) {
+        // 1 step - Create list of type UserResponseDTO
+        List<UserResponseDTO> usersByRol = new ArrayList<>();
+        // 2 step - Create list of type UserEntity and save
+        List<UserEntity> users = userRepo.findByRolId(RolId);
+        users.stream().forEach(
+                user -> {
+                    UserResponseDTO newUser = new UserResponseDTO(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getRol().getId(),user.getRol().getName());
+                    usersByRol.add(newUser);
+                });
+        return usersByRol;
+
+    }
+
 }

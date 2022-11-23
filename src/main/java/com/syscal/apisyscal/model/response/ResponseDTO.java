@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDto {
+public class ResponseDTO {
 
     private String message;
     private Map<String, Object> Data;
