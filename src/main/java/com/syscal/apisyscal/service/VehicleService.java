@@ -1,23 +1,21 @@
 package com.syscal.apisyscal.service;
 
-import com.syscal.apisyscal.model.entity.UserEntity;
-import com.syscal.apisyscal.model.request.UserRequestDTO;
-import com.syscal.apisyscal.model.response.UserResponseDTO;
+import com.syscal.apisyscal.model.entity.VehicleEntity;
+import com.syscal.apisyscal.model.request.VehicleRequestDTO;
+import com.syscal.apisyscal.model.response.VehicleResponseDTO;
 
 import java.util.List;
 
 public interface VehicleService {
 
-    public List<UserResponseDTO> getAllUsers();
+    public List<VehicleResponseDTO> getAll();
 
-    public UserResponseDTO getUserById(Integer userId);
+    public VehicleResponseDTO getOne(Integer userId);
 
-    public void deleteUserById(Integer userId);
+    public void delete(Integer userId);
 
-    public UserEntity updateUserById(Integer userId, UserRequestDTO user);
+    public VehicleEntity update(Integer userId, VehicleRequestDTO user);
 
-    public UserEntity saveUser(UserRequestDTO user);
-
-    public List<UserResponseDTO> getAllUsersByRolId(Integer RolId);
+    public VehicleEntity save(VehicleRequestDTO user);
 
 }
