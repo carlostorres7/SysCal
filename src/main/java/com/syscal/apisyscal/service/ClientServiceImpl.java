@@ -40,6 +40,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public List<ClientResponseDTO> searchClient(String value) {
+        List<ClientResponseDTO> clientsDTO = new ArrayList<>();
+        List<ClientEntity> clients = clientRepository.findAllByPnameOrPlastnameOrCedula(value,value,value);
+        clients.stream().forEach( client -> {
+            System.out.println(client);
+            clientsDTO.add(new ClientResponseDTO(client));
+        });
+        return clientsDTO;
+    }
+
+    @Override
     public ClientEntity save(ClientRequestDTO body) {
         ClientEntity client = convertDtoToEntity(body);
         try {

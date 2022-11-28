@@ -12,6 +12,8 @@ public interface ClientService {
 
     public ClientEntity getOne(Integer Id);
 
+    public List<ClientResponseDTO> searchClient(String value);
+
     public ClientEntity save(ClientRequestDTO body);
 
     public ClientEntity update(Integer Id, ClientRequestDTO body);

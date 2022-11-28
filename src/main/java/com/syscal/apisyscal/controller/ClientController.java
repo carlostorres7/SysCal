@@ -40,6 +40,13 @@ public class ClientController {
         return ResponseEntity.ok().body(client);
     }
 
+    @GetMapping("/search/{value}")
+    public ResponseEntity<?> searchClient(@PathVariable String value) {
+        log.info("ClientController.searchClient");
+        System.out.println(value);
+        List<ClientResponseDTO> client = clientService.searchClient("%"+value+"%");
+        return ResponseEntity.ok().body(client);
+    }
 
     @PostMapping("")
     public ResponseEntity<?> save(@Valid @RequestBody ClientRequestDTO body) {
