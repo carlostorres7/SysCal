@@ -39,6 +39,12 @@ public class VehicleController {
         return ResponseEntity.ok().body(Vehicle);
     }
 
+    @GetMapping("/placa/{placa}")
+    public ResponseEntity<?> getVehicleByPlaca(@PathVariable String placa) {
+        log.info("VehicleController.getVehicleByPlaca");
+        VehicleEntity Vehicle = vehicleService.getOneByPlaca(placa);
+        return ResponseEntity.ok().body(Vehicle);
+    }
 
     @PostMapping("")
     public ResponseEntity<?> saveVehicle(@Valid @RequestBody VehicleRequestDTO data) {
@@ -49,7 +55,7 @@ public class VehicleController {
 
     @PutMapping("/{VehicleId}")
     public ResponseEntity<?> updateVehicle(@PathVariable Integer VehicleId, @Valid @RequestBody VehicleRequestDTO body) {
-        log.info("UserController.deleteUser");
+        log.info("VehicleController.deleteVehicle");
         if (VehicleId < 1) {
             throw new BusinessException(String.format("The value %s must greater than 1", VehicleId), "400", HttpStatus.BAD_REQUEST);
         }
@@ -59,7 +65,7 @@ public class VehicleController {
 
     @DeleteMapping("/{VehicleId}")
     private ResponseEntity<?> deleteVehicle(@PathVariable Integer VehicleId) {
-        log.info("UserController.deleteUser");
+        log.info("VehicleController.deleteUser");
         if (VehicleId < 1) {
             throw new BusinessException(String.format("The value %s must greater than 1", VehicleId), "400", HttpStatus.BAD_REQUEST);
         }

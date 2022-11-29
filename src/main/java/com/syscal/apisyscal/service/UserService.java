@@ -13,6 +13,8 @@ public interface UserService {
 
     public UserResponseDTO getUserById(Integer userId);
 
+    public UserEntity getUserByUsernameOrEmail(String username);
+
     public void deleteUserById(Integer userId);
 
     public UserEntity updateUserById(Integer userId, UserRequestDTO user);

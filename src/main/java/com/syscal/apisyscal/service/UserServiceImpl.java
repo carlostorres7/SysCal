@@ -50,6 +50,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getUserByUsernameOrEmail(String username) {
+        Optional<UserEntity> user = userRepo.findByUsernameOrEmail(username,username);
+        if (!user.isPresent()) {
+            throw new BusinessException("User not Exist","404", HttpStatus.NOT_FOUND);
+        }
+        return user.get();
+    }
+
+    @Override
     public void deleteUserById(Integer userId) {
         Optional<UserEntity> user = userRepo.findById(userId);
         if (!user.isPresent()) {

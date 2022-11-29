@@ -3,8 +3,11 @@ package com.syscal.apisyscal.controller;
 import javax.validation.Valid;
 
 import com.syscal.apisyscal.email.EmailService;
+import com.syscal.apisyscal.model.entity.EmailCodeEntity;
 import com.syscal.apisyscal.model.request.RecoverPasswordDTO;
+import com.syscal.apisyscal.model.request.ValidateCodeRequestDTO;
 import com.syscal.apisyscal.security.services.AuthUserDetailsServiceImpl;
+import com.syscal.apisyscal.service.EmailCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +40,9 @@ public class AuthController {
     AuthUserDetailsServiceImpl authUserDetailsService;
 
     @Autowired
+    private EmailCodeService emailCodeService;
+
+    @Autowired
     EmailService emailService;
 
     @Autowired
@@ -63,6 +69,16 @@ public class AuthController {
         log.info("Auth Controller - Recover Password");
         authUserDetailsService.recoverPassword(body.getUsername());
         return ResponseEntity.ok().body(null);
+    }
+
+    @PostMapping("/validate-code")
+    public ResponseEntity<?> validateCode(@Valid @RequestBody ValidateCodeRequestDTO body) {
+        log.info("Auth Controller - Recover Password");
+        EmailCodeEntity emailCode = emailCodeService.getOneByUsername(body.getUsername());
+        if (!emailCode.getCode().equals(body.getCode())) {
+
+        }
+        return null;
     }
 
     @PostMapping("/change-password")

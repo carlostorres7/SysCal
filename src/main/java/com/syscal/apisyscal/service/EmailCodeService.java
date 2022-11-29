@@ -12,6 +12,8 @@ public interface EmailCodeService {
 
     EmailCodeEntity getOne(Integer id);
 
+    EmailCodeEntity getOneByUsername(String username);
+
     EmailCodeEntity save(EmailCodeEntity body);
 
     EmailCodeEntity update(Integer id, EmailCodeEntity body);

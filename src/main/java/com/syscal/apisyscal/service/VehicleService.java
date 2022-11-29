@@ -10,12 +10,14 @@ public interface VehicleService {
 
     public List<VehicleResponseDTO> getAll();
 
-    public VehicleResponseDTO getOne(Integer userId);
+    public VehicleEntity getOne(Integer Id);
 
-    public void delete(Integer userId);
+    public VehicleEntity getOneByPlaca(String placa);
 
-    public VehicleEntity update(Integer userId, VehicleRequestDTO user);
+    public void delete(Integer Id);
 
-    public VehicleEntity save(VehicleRequestDTO user);
+    public VehicleEntity update(Integer Id, VehicleRequestDTO body);
+
+    public VehicleEntity save(VehicleRequestDTO body);
 
 }

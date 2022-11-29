@@ -2,6 +2,7 @@ package com.syscal.apisyscal.model.entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="vehicles")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VehicleEntity {
@@ -22,19 +24,21 @@ public class VehicleEntity {
 
     private String brand;
 
+    private String reference;
+
     private String placa;
 
     private String color;
 
     @Column(name = "createdbyid")
-    private Integer createdById;
+    private Integer createdbyid;
 
     @CreationTimestamp
     @Column(name = "createdat")
-    private Date createdAt;
+    private Date createdat;
 
     @UpdateTimestamp
     @Column(name = "updatedat")
-    private Date updatedAt;
+    private Date updatedat;
 
 }

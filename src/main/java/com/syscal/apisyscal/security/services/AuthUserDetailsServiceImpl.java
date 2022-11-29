@@ -7,7 +7,6 @@ import com.syscal.apisyscal.email.EmailService;
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.EmailCodeEntity;
 import com.syscal.apisyscal.model.request.EmailRequestDTO;
-import com.syscal.apisyscal.repository.EmailCodeRepository;
 import com.syscal.apisyscal.service.EmailCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
