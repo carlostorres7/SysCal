@@ -50,6 +50,12 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public OrdersResponseDTO getOrderById(Integer orderId) {
+        OrdersEntity order = getOne(orderId);
+        return new OrdersResponseDTO(order);
+    }
+
+    @Override
     public OrdersResponseDTO save(OrdersRequestDTO body) {
         UserEntity technical = userService.getOne(body.getTechnical_id());
         ClientEntity client = clientService.getOne(body.getClient_id());

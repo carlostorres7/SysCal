@@ -27,6 +27,8 @@ public interface OrdersService {
 
     public OrdersEntity getOne(Integer orderId);
 
+    public OrdersResponseDTO getOrderById(Integer orderId);
+
     public OrdersResponseDTO save(OrdersRequestDTO body);
 
     public OrdersResponseDTO update(Integer orderId,OrdersRequestDTO body);

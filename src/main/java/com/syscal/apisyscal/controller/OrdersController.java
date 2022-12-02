@@ -35,6 +35,13 @@ public class OrdersController {
         return ResponseEntity.ok().body(orders);
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<?> getOne(@PathVariable Integer orderId) {
+        log.info("OrdersController.getOne");
+        OrdersResponseDTO orders = ordersService.getOrderById(orderId);
+        return ResponseEntity.ok().body(orders);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@Valid @RequestBody @NotNull OrdersRequestDTO body) {
         log.info("OrdersController.save");
