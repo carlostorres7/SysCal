@@ -11,6 +11,8 @@ public interface UserService {
 
     public List<UserResponseDTO> getAllUsers();
 
+    public UserEntity getOne(Integer userId);
+
     public UserResponseDTO getUserById(Integer userId);
 
     public UserEntity getUserByUsernameOrEmail(String username);

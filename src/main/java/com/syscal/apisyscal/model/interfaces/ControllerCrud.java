@@ -14,7 +14,7 @@ public interface ControllerCrud<T> {
     public ResponseEntity<?> getOne(@PathVariable Integer id);
 
     @PostMapping("")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody T body);
+    public ResponseEntity<?> save(@Valid @RequestBody T body);
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @Valid @RequestBody T body);

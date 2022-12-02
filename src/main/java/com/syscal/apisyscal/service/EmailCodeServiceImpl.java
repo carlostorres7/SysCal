@@ -1,10 +1,10 @@
 package com.syscal.apisyscal.service;
 
+import com.syscal.apisyscal.service.UserService;
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.EmailCodeEntity;
 import com.syscal.apisyscal.model.entity.UserEntity;
 import com.syscal.apisyscal.repository.EmailCodeRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

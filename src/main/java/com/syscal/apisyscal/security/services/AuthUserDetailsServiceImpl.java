@@ -7,7 +7,6 @@ import com.syscal.apisyscal.email.EmailService;
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.EmailCodeEntity;
 import com.syscal.apisyscal.model.request.EmailRequestDTO;
-import com.syscal.apisyscal.service.EmailCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +29,6 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     EmailService emailService;
-
-    @Autowired
-    EmailCodeService emailCodeService;
 
     @Autowired
     utils utils;
@@ -68,7 +64,7 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
             EmailCodeEntity EmailCode = new EmailCodeEntity();
             EmailCode.setCode(code);
             EmailCode.setUserId(user.get().getId());
-            emailCodeService.save(EmailCode);
+            //emailCodeService.save(EmailCode);
             email.setContent("<p>Ingresa el siguiente codigo para la recuperacion de tu contraseña </p>" + code  + "<br><p>Syscal 2022  </p>");
             emailService.sendEmail(email);
         } catch (Exception ex) {

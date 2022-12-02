@@ -40,6 +40,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getOne(Integer userId) {
+        Optional<UserEntity> user = userRepo.findById(userId);
+        if (!user.isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "The User not Exist");
+        }
+        return user.get();
+    }
+
+    @Override
     public UserResponseDTO getUserById(Integer userId) throws HttpClientErrorException {
         Optional<UserEntity> user = userRepo.findById(userId);
         if (user.isPresent()) {
