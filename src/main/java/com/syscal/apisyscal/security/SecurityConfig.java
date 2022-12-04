@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.syscal.apisyscal.security.jwt.AuthEntryPointJwt;
-import com.syscal.apisyscal.security.services.UserDetailsServiceImpl;
+import com.syscal.apisyscal.security.services.AuthUserDetailsServiceImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -28,7 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    AuthUserDetailsServiceImpl userDetailsService;
   
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;

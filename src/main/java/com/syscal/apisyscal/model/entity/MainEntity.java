@@ -30,4 +30,7 @@ public class MainEntity {
     @Column(name = "icon")
     private String icon;
 
+    @Column(name = "hidden")
+    private Boolean hidden;
+
 }

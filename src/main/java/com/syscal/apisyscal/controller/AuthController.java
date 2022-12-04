@@ -3,8 +3,11 @@ package com.syscal.apisyscal.controller;
 import javax.validation.Valid;
 
 import com.syscal.apisyscal.email.EmailService;
+import com.syscal.apisyscal.model.entity.EmailCodeEntity;
 import com.syscal.apisyscal.model.request.RecoverPasswordDTO;
-import com.syscal.apisyscal.security.services.UserDetailsServiceImpl;
+import com.syscal.apisyscal.model.request.ValidateCodeRequestDTO;
+import com.syscal.apisyscal.security.services.AuthUserDetailsServiceImpl;
+import com.syscal.apisyscal.service.EmailCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syscal.apisyscal.model.request.AuthRequestDTO;
-import com.syscal.apisyscal.model.response.UserInfoResponse;
+import com.syscal.apisyscal.model.response.UserInfoResponseDTO;
 import com.syscal.apisyscal.security.jwt.JwtUtils;
-import com.syscal.apisyscal.security.services.UserDetailsImpl;
+import com.syscal.apisyscal.security.services.AuthUserDetailsImpl;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -35,7 +37,10 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserDetailsServiceImpl userService;
+    AuthUserDetailsServiceImpl authUserDetailsService;
+
+    @Autowired
+    private EmailCodeService emailCodeService;
 
     @Autowired
     EmailService emailService;
@@ -53,17 +58,34 @@ public class AuthController {
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(userAuth);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        AuthUserDetailsImpl userDetails = (AuthUserDetailsImpl) authentication.getPrincipal();
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(), userDetails.getName() ,userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
+        UserInfoResponseDTO response = new UserInfoResponseDTO(userDetails.getId(), userDetails.getName() ,userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
         return ResponseEntity.ok().header("auth_token", jwtCookie.toString()).body(response);
+    }
+
+    @PostMapping("/recover-password")
+    public ResponseEntity<?> recoverPassword(@Valid @RequestBody RecoverPasswordDTO body) {
+        log.info("Auth Controller - Recover Password");
+        authUserDetailsService.recoverPassword(body.getUsername());
+        return ResponseEntity.ok().body(null);
+    }
+
+    @PostMapping("/validate-code")
+    public ResponseEntity<?> validateCode(@Valid @RequestBody ValidateCodeRequestDTO body) {
+        log.info("Auth Controller - Recover Password");
+        EmailCodeEntity emailCode = emailCodeService.getOneByUsername(body.getUsername());
+        if (!emailCode.getCode().equals(body.getCode())) {
+
+        }
+        return null;
     }
 
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@Valid @RequestBody RecoverPasswordDTO body ) throws Exception {
         log.info("Auth Controller - Change Password");
         String password = encoder.encode(body.getPassword());
-        userService.updatePasswordBYUser(body.getUsername(),password);
+        authUserDetailsService.updatePasswordBYUser(body.getUsername(),password);
         return  ResponseEntity.ok("User update with successful");
     }
 
