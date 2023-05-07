@@ -3,9 +3,9 @@ package com.syscal.apisyscal.model.response;
 import com.syscal.apisyscal.model.request.ServiceRequestDTO;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.Date;
 
 @Data

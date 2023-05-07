@@ -1,6 +1,6 @@
 package com.syscal.apisyscal.security.services;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import com.syscal.apisyscal.common.utils;
 import com.syscal.apisyscal.email.EmailService;

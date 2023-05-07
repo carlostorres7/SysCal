@@ -1,6 +1,5 @@
 package com.syscal.apisyscal.controller;
 
-import javax.validation.Valid;
 
 import com.syscal.apisyscal.email.EmailService;
 import com.syscal.apisyscal.model.entity.EmailCodeEntity;
@@ -8,6 +7,7 @@ import com.syscal.apisyscal.model.request.RecoverPasswordDTO;
 import com.syscal.apisyscal.model.request.ValidateCodeRequestDTO;
 import com.syscal.apisyscal.security.services.AuthUserDetailsServiceImpl;
 import com.syscal.apisyscal.service.EmailCodeService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -54,12 +54,18 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequestDTO loginRequest) {
         log.info("Auth Controller - Login");
-        emailService.sendEmailTool("Inicio de sesion x", "carlostorres8791@gmail.com", "Prueba de correo");
+        //emailService.sendEmailTool("Inicio de sesion x", "carlostorres8791@gmail.com", "Prueba de correo");
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        log.info("Auth Controller - Login " + userAuth.toString());
         Authentication authentication = authenticationManager.authenticate(userAuth);
+        log.info("Auth Controller - Login " + authentication.toString());
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         AuthUserDetailsImpl userDetails = (AuthUserDetailsImpl) authentication.getPrincipal();
+        log.info("Auth Controller - Login userDetails" + userDetails.toString());
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        log.info("Auth Controller - Login token" + jwtCookie.toString());
         UserInfoResponseDTO response = new UserInfoResponseDTO(userDetails.getId(), userDetails.getName() ,userDetails.getUsername(), userDetails.getEmail(), jwtCookie.toString(),userDetails.getAuthorities(), userDetails.getRoles() );
         return ResponseEntity.ok().header("auth_token", jwtCookie.toString()).body(response);
     }

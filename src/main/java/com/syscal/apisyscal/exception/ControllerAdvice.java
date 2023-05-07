@@ -43,16 +43,6 @@ public class ControllerAdvice {
         error.setErrors(errors);
         return new ResponseEntity<>(error, ex.getStatus());
     }
-/*
-    @ExceptionHandler(value = RuntimeException.class)
-    public ResponseEntity<ErrorDTO> runtimeExceptionHandler(RuntimeException ex) {
-        ErrorDTO error = new ErrorDTO();
-        error.setCode("404");
-        error.setMessage(ex.getLocalizedMessage());
-        error.setStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-*/
 
 }
 

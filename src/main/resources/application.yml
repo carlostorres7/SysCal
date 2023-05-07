@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:mysql://192.168.128.8:3306/syscal
+    url: jdbc:mysql://localhost:3306/syscal
     username: root
     password: sa..
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,6 +21,11 @@ spring:
           connectiontimeout : 5000
           timeout : 5000
           writetimeout : 5000
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
 server:
   port: 8090 # This is the default port anyway, but you can change it here
 security:
@@ -29,3 +34,4 @@ jwt:
   jwtCookieName: Bearer
   jwtSecret: zdWIiOiJlZHdhcmVyYXpvIiwiaWF0IjoxNjY3NTM4NTQxLCJleHAiOjE2Njc2MjQ5NDF9
   jwtExpirationMs: 86400000
+

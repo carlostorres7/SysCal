@@ -2,10 +2,10 @@ package com.syscal.apisyscal.security.jwt;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import com.syscal.apisyscal.security.services.AuthUserDetailsServiceImpl;
 
 @Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
-    
+
     @Autowired
     private JwtUtils jwtUtils;
   
@@ -31,9 +31,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
       try {
+          log.info(AuthTokenFilter.class + " doFilterInternal");
         String jwt = parseJwt(request);
+          log.info(AuthTokenFilter.class + " jwt "+ jwt );
         if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-
+            log.info(AuthTokenFilter.class + " valid token jwt {}", jwt );
           String username = jwtUtils.getUserNameFromJwtToken(jwt);
           UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
@@ -49,7 +51,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             return;
         }
       } catch (Exception e) {
-        log.error("Cannot set user authentication: {}", e);
+        log.error("Cannot set user authentication: {}", e.getMessage());
       }
   
 

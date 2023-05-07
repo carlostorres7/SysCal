@@ -1,19 +1,18 @@
 package com.syscal.apisyscal.controller;
 
-
 import com.syscal.apisyscal.exception.BusinessException;
 import com.syscal.apisyscal.model.entity.ClientEntity;
 import com.syscal.apisyscal.model.request.ClientRequestDTO;
 import com.syscal.apisyscal.model.response.ClientResponseDTO;
 import com.syscal.apisyscal.model.response.ResponseDTO;
 import com.syscal.apisyscal.service.ClientService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

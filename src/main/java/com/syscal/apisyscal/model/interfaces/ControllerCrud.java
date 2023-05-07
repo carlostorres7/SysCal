@@ -3,7 +3,7 @@ package com.syscal.apisyscal.model.interfaces;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 public interface ControllerCrud<T> {
 
