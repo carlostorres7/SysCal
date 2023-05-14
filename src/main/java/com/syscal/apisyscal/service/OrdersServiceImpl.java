@@ -56,6 +56,14 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<OrdersResponseDTO> getByTechnician(Integer TechnicianId){
+        List<OrdersResponseDTO> ordersDTO = new ArrayList<>();
+        List<OrdersEntity> orders = ordersRepository.findAllByTechnical_id(TechnicianId);
+        orders.stream().forEach( order ->  ordersDTO.add(new OrdersResponseDTO(order)));
+        return ordersDTO;
+    };
+
+    @Override
     public OrdersResponseDTO save(OrdersRequestDTO body) {
         UserEntity technical = userService.getOne(body.getTechnical_id());
         ClientEntity client = clientService.getOne(body.getClient_id());

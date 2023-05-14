@@ -2,7 +2,11 @@ spring:
   jpa:
     show-sql: true
   datasource:
+<<<<<<< HEAD
+    url: jdbc:mysql://localhost:3306/syscal2
+=======
     url: jdbc:mysql://localhost:3306/syscal
+>>>>>>> cdf8295bf8fb7963335c0957eef06e2e45991c50
     username: root
     password: sa..
     driver-class-name: com.mysql.cj.jdbc.Driver

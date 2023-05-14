@@ -42,6 +42,13 @@ public class OrdersController {
         return ResponseEntity.ok().body(orders);
     }
 
+    @GetMapping("/bytechnician/{technicianId}")
+    public ResponseEntity<?> getByTechnician(@PathVariable Integer technicianId) {
+        log.info("OrdersController.getByTechnician");
+        List<OrdersResponseDTO> orders = ordersService.getByTechnician(technicianId);
+        return ResponseEntity.ok().body(orders);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@Valid @RequestBody @NotNull OrdersRequestDTO body) {
         log.info("OrdersController.save");
