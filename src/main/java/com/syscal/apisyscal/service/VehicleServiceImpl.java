@@ -53,7 +53,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public VehicleEntity getOneByPlaca(String placa) {
         // verify exist of the Id in table Vehicle
-        Optional<VehicleEntity> vehicle = vehicleRepository.findByPlaca(placa);
+        Optional<VehicleEntity> vehicle = vehicleRepository.findByPlacaContaining(placa);
         // if not exist return error 404
         if (!vehicle.isPresent()) {
             throw new BusinessException("Vehicle not Exist","404", HttpStatus.NOT_FOUND);

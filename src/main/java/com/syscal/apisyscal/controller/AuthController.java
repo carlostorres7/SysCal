@@ -54,7 +54,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequestDTO loginRequest) {
         log.info("Auth Controller - Login");
-        emailService.sendEmailTool("Inicio de sesion x", "carlostorres8791@gmail.com", "Prueba de correo");
+        //emailService.sendEmailTool("Inicio de sesion x", "carlostorres8791@gmail.com", "Prueba de correo");
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(userAuth);
         SecurityContextHolder.getContext().setAuthentication(authentication);

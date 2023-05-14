@@ -14,15 +14,15 @@ public class VehicleResponseDTO extends VehicleRequestDTO {
 
     private Integer id;
 
-    private Date createdAt;
+    private Date createdat;
 
-    private Date updatedAt;
+    private Date updatedat;
 
     public VehicleResponseDTO(VehicleEntity vehicleEntity) {
         super(vehicleEntity);
         this.id = vehicleEntity.getId();
-        this.createdAt = vehicleEntity.getCreatedat();
-        this.updatedAt = vehicleEntity.getUpdatedat();
+        this.createdat = vehicleEntity.getCreatedat();
+        this.updatedat = vehicleEntity.getUpdatedat();
     }
 
 

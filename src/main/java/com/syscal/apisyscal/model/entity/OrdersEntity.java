@@ -20,15 +20,15 @@ public class OrdersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     private VehicleEntity vehicle;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "technical_id", referencedColumnName = "id")
     private UserEntity technical;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private ClientEntity client;
 
